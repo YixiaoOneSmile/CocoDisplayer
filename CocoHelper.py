@@ -8,12 +8,15 @@ import matplotlib.pyplot as plt
 
 class CocoHelper(COCO):
     # load coco data
-    def __init__(self, annotation_file, images_path):
+    def __init__(self, annotation_file, images_path, result_file=''):
         super().__init__(annotation_file)
         self.ids = []
         self.image_list = []
         self.coco_classes = []
         self.images_path = images_path
+        self.result = None
+        if result_file != '':
+            self.result = self.loadRes(result_file)
 
     def load_coco_images_list(self, image_begin_index=0, image_end_index=100):
         # get all image index info
@@ -50,15 +53,13 @@ class CocoHelper(COCO):
         plt.imshow(self.image_pillow(image_id))
         plt.show()
 
-    def image_bbox_pillow(self, image_id):
+    def image_bbox_pillow(self, image_id, img=None):
+        if img is None:
+            img = self.image_pillow(image_id)
         # get all annotation index  of the corresponding image ID
         ann_ids = self.getAnnIds(imgIds=image_id)
         # according annotation index get all of label information
         targets = self.loadAnns(ann_ids)
-        # get image file name
-        path = self.loadImgs(image_id)[0]['file_name']
-        # if we do not convert image to ‘RGB’ , the image may have 4 channels ,such as  'RGBA'
-        img = Image.open(os.path.join(self.images_path, path)).convert('RGB')
         draw = ImageDraw.Draw(img)
         # draw box to image
         for target in targets:
@@ -73,19 +74,16 @@ class CocoHelper(COCO):
         plt.imshow(self.image_bbox_pillow(image_id))
         plt.show()
 
-    def image_keypoint_pillow(self, image_id):
+    def image_keypoint_pillow(self, image_id, img=None):
+        if img is None:
+            img = self.image_pillow(image_id)
         # get all annotation index  of the corresponding image ID
         ann_ids = self.getAnnIds(imgIds=image_id)
         # according annotation index get all of label information
         targets = self.loadAnns(ann_ids)
-        # get image file name
-        path = self.loadImgs(image_id)[0]['file_name']
-        # if we do not convert image to ‘RGB’ , the image may have 4 channels ,such as  'RGBA'
-        img = Image.open(os.path.join(self.images_path, path)).convert('RGB')
+
         draw = ImageDraw.Draw(img)
         # draw keypoint to image
-        targets = self.loadAnns(ann_ids)
-
         for target in targets:
             keypoints_info = np.array(target["keypoints"]).reshape([-1, 3])
             visible = keypoints_info[:, 2]
@@ -95,6 +93,28 @@ class CocoHelper(COCO):
                     continue
                 x, y = keypoints[i]
                 draw.ellipse((x - 3, y - 3, x + 3, y + 3), fill=250)
+        return img
+
+    def image_keypoint_result_pillow(self, image_id, img=None):
+        if img is None:
+            img = self.image_pillow(image_id)
+        # get all annotation index  of the corresponding image ID
+        ann_ids = self.result.getAnnIds(imgIds=image_id)
+        # according annotation index get all of label information
+        targets = self.result.loadAnns(ann_ids)
+
+        draw = ImageDraw.Draw(img)
+        # draw keypoint to image
+        for target in targets:
+            keypoints_info = np.array(target["keypoints"]).reshape([-1, 3])
+            visible = keypoints_info[:, 2]
+            keypoints = keypoints_info[:, :2]
+            for i in range(len(keypoints)):
+                # if visible[i] != 2:
+                #     continue
+                x, y = keypoints[i]
+                # x, y = round(x), round(y)
+                draw.ellipse((x - 3, y - 3, x + 3, y + 3), fill=(0, 255, 0))
         return img
 
 

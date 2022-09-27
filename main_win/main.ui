@@ -27,20 +27,20 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>110</y>
+       <y>100</y>
        <width>113</width>
        <height>21</height>
       </rect>
      </property>
      <property name="placeholderText">
-      <string>annotion path</string>
+      <string>annotion file</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="image_path_lineEdit">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>180</y>
+       <y>170</y>
        <width>113</width>
        <height>21</height>
       </rect>
@@ -53,7 +53,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>250</y>
+       <y>310</y>
        <width>113</width>
        <height>21</height>
       </rect>
@@ -66,7 +66,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>320</y>
+       <y>380</y>
        <width>93</width>
        <height>28</height>
       </rect>
@@ -79,7 +79,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>140</y>
+       <y>130</y>
        <width>111</width>
        <height>28</height>
       </rect>
@@ -92,7 +92,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>210</y>
+       <y>200</y>
        <width>111</width>
        <height>28</height>
       </rect>
@@ -105,7 +105,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>280</y>
+       <y>340</y>
        <width>113</width>
        <height>21</height>
       </rect>
@@ -118,7 +118,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>380</y>
+       <y>420</y>
        <width>141</width>
        <height>261</height>
       </rect>
@@ -139,7 +139,7 @@
        <string>show bbox</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="keypoint__checkBox">
+     <widget class="QCheckBox" name="keypoint_checkBox">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -152,6 +152,45 @@
        <string>show keypoint</string>
       </property>
      </widget>
+     <widget class="QCheckBox" name="result_checkBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>131</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>show result</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QLineEdit" name="result_path_lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>240</y>
+       <width>113</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="placeholderText">
+      <string>result file</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="select_result_path_button">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>270</y>
+       <width>111</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>result</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="widget" native="true">
@@ -163,77 +202,6 @@
       <height>711</height>
      </rect>
     </property>
-    <widget class="QFrame" name="frame">
-     <property name="geometry">
-      <rect>
-       <x>390</x>
-       <y>640</y>
-       <width>201</width>
-       <height>71</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLabel" name="total_image_count_label">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>30</y>
-        <width>50</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>0</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>30</y>
-        <width>20</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>/</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="current_image_index_label">
-      <property name="geometry">
-       <rect>
-        <x>50</x>
-        <y>30</y>
-        <width>50</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>0</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QLabel" name="main_show_image_label">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>30</y>
-       <width>800</width>
-       <height>600</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
     <widget class="QListWidget" name="images_listWidget">
      <property name="geometry">
       <rect>
@@ -256,8 +224,96 @@
       <bool>false</bool>
      </property>
     </widget>
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>921</width>
+       <height>701</height>
+      </rect>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="show_page">
+      <widget class="QLabel" name="main_show_image_label">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>30</y>
+         <width>800</width>
+         <height>600</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame">
+       <property name="geometry">
+        <rect>
+         <x>360</x>
+         <y>630</y>
+         <width>201</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="total_image_count_label">
+        <property name="geometry">
+         <rect>
+          <x>140</x>
+          <y>30</y>
+          <width>50</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_3">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>30</y>
+          <width>20</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>/</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="current_image_index_label">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>30</y>
+          <width>50</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="contrast_page"/>
+    </widget>
    </widget>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -272,18 +328,12 @@
      <string>file</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuhelp">
-    <property name="title">
-     <string>help</string>
-    </property>
-   </widget>
    <addaction name="menufile"/>
-   <addaction name="menuhelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
   <include location="resource.qrc"/>
+  <include location="../../../tricks/PyQt5-YOLOv5/apprcc.qrc"/>
  </resources>
  <connections/>
 </ui>
